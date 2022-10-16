@@ -14,8 +14,14 @@ import EditCategories from "../pages/categories/EditCategories.vue";
 import CreatePosts from "../pages/posts/CreatePosts.vue";
 import DashboardPostsList from "../pages/posts/DashboardPostsList.vue";
 import EditPosts from "../pages/posts/EditPosts.vue";
+import test from "../pages/test.vue";
 
 const routes = [
+    {
+        path: "/test",
+        name: "test",
+        component: test,
+    },
     {
         path: "/",
         name: "Home",
