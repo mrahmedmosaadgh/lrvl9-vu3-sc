@@ -42,6 +42,11 @@
               >Dashboard</router-link
             >
           </li>
+          <li v-if="loggedIn">
+            <router-link @click="hideOverlay" :to="{ name: 'test' }"
+              >test</router-link
+            >
+          </li>
         </ul>
       </div>
 
