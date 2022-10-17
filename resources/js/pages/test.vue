@@ -1,27 +1,19 @@
 <template>
     <div>
-        Laravel9Vue3BlogTest'
+        Laravel9Vue3BlogTest' <br>
+        {{taskStore.name}} <br>
+        {{taskStore.tasks[0].title}} <br>
+        {{taskStore.tasks[0].title}} <br>
+        {{taskStore.tasks[0].title}} <br>
+        {{taskStore.tasks[0].title}} <br>
+        {{taskStore.tasks[1].title}} <br>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Laravel9Vue3BlogTest',
+<script setup>
+import {useTaskStore} from '../stores/store.js'
+const taskStore = useTaskStore()
 
-    data() {
-        return {
-            
-        };
-    },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
-};
 </script>
 
 <style lang="scss" scoped>

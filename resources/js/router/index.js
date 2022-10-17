@@ -15,8 +15,14 @@ import CreatePosts from "../pages/posts/CreatePosts.vue";
 import DashboardPostsList from "../pages/posts/DashboardPostsList.vue";
 import EditPosts from "../pages/posts/EditPosts.vue";
 import test from "../pages/test.vue";
+import adminmain from "../pages/forqan/admin/main.vue";
 
 const routes = [
+    {
+        path: "/admin/main",  name: "adminmain",  component: adminmain,
+        meta: { requiresAuth: true },
+        props: true
+    },
     {
         path: "/test",
         name: "test",
