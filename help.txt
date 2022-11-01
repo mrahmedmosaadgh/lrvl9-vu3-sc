@@ -1,0 +1,52 @@
+install pinia
+----------------------------------------------------------
+npm install pinia
+----------------------------------------------------------
+resources\js\app.js
+
+import { createPinia } from 'pinia'
+.use(createPinia())
+----------------------------------------------------------
+folder create ->
+stores/store.js
+
+
+----------------------------------------------------------
+git checkout -b 0.4
+git add -A
+
+git commit -m "add pinia 17-10"
+git push -u aa1  0.4
+
+----------------------------------------------------------
+
+        <li class="item has-submenu">
+            <a tabindex="0">Services</a>
+            <ul class="submenu">
+                <li class="subitem"><a href="#">Design</a></li>
+                <li class="subitem"><a href="#">Development</a></li>
+                <li class="subitem"><a href="#">SEO</a></li>
+                <li class="subitem"><a href="#">Copywriting</a></li>
+            </ul>
+        </li>
+
+----------------------------------------------------------
+
+----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

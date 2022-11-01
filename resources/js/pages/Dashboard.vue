@@ -2,65 +2,135 @@
   <div id="backend-view">
     <div class="logout"><a href="#" @click="logout">Log out</a></div>
     <h1 class="heading">Dashboard</h1>
+    <p><span
+      class=" bg-black text-white px-3 py-1 m-3 rounded text-xl"
+      >{{AppStore.user.usertype}}</span></p>
     <span>Hi {{ name }}!</span>
     <div class="links">
       <ul>
-        <li>
-          <router-link :to="{ name: 'CreatePosts' }">Create Posts</router-link>
+        <li v-for="item in routearray_admin" :key="item.id"
+        >
+         
+          <router-link
+          v-if="AppStore.user.usertype=='admin'"
+          :to="item.rout">{{item.title}}</router-link>
         </li>
-        <li>
-          <router-link :to="{ name: 'DashboardPostsList' }"
-            >Posts List</router-link
-          >
+
+
+        <li v-for="item in routearray_teacher" :key="item.id"
+        >
+         
+          <router-link
+          v-if="AppStore.user.usertype=='teacher'"
+          :to="item.rout">{{item.title}}</router-link>
         </li>
-        <li>
-          <router-link :to="{ name: 'CreateCategories' }"
-            >Create Categories</router-link
-          >
-        </li>
-        <li>
-          <router-link :to="{ name: 'CategoriesList' }"
-            >Categories List</router-link
-          >
-        </li>
+
+
+
+
+        
+       
       </ul>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      name: "",
-    };
-  },
-  mounted() {
-    axios
+<script setup>
+import { useRouter, useRoute } from 'vue-router'
+import {useAppStore} from '@/stores/appstore'
+import { ref } from 'vue';
+import { onMounted } from 'vue'
+const AppStore = useAppStore();
+const router = useRouter()
+const name = ref('');
+const routearray_admin = ref(
+  [
+    {title:'adminhome',rout:{name: 'adminhome'}},
+    {title:'teacher_sub_class',rout:{name: 'teacher_sub_class'}},
+  ]
+);
+const routearray_teacher = ref(
+  [
+    {title:'teacherhome',rout:{name: 'teacherhome'}},
+  ]
+);
+
+
+onMounted(() => {
+      console.log('mounted in the composition api!')
+
+
+      axios
       .get("/api/user")
-      .then((response) => (this.name = response.data.name))
+      .then((response) => (name.value = response.data.name))
       .catch((error) => {
         if (error.response.status === 401) {
-          this.$emit("updateSidebar");
+          // this.$emit("updateSidebar");
+          AppStore.loggedIn= false;
           localStorage.removeItem("authenticated");
-          this.$router.push({ name: "Login" });
+          // this.$router.push({ name: "Login" });
+          router.push({ name: "Login" });
+
         }
       });
-  },
 
-  methods: {
-    logout() {
+
+
+
+
+
+
+
+    })
+
+
+
+
+
+  // mounted() {
+  //   axios
+  //     .get("/api/user")
+  //     .then((response) => (this.name = response.data.name))
+  //     .catch((error) => {
+  //       if (error.response.status === 401) {
+  //         // this.$emit("updateSidebar");
+  //         this.TaskStore.loggedIn= !this.TaskStore.loggedIn;
+  //         localStorage.removeItem("authenticated");
+  //         this.$router.push({ name: "Login" });
+  //       }
+  //     });
+  // },
+
+
+  function logout() {
       axios
         .post("/api/logout")
         .then((response) => {
-          this.$router.push({ name: "Home" });
           localStorage.removeItem("authenticated");
-          this.$emit("updateSidebar");
+          // this.$emit("updateSidebar");
+          AppStore.loggedIn= false;
+          router.push({ name: "Login" });
         })
         .catch((error) => console.log(error));
-    },
-  },
-};
+    }
+
+
+
+
+//   methods: {
+//     logout() {
+//       axios
+//         .post("/api/logout")
+//         .then((response) => {
+//           this.$router.push({ name: "Login" });
+//           localStorage.removeItem("authenticated");
+//           // this.$emit("updateSidebar");
+//           this.TaskStore.loggedIn= !this.TaskStore.loggedIn;
+//         })
+//         .catch((error) => console.log(error));
+//     },
+//   },
+// };
 </script>
 
 <style scoped>
