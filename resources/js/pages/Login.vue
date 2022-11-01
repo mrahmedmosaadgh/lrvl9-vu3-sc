@@ -1,5 +1,5 @@
 <template>
-  <div id="backend-view" >
+  <div id="backend-view" class="backm">
 
 
 <h3 class=" text-center">Login to <span class="text-2xl">AlForqan</span>   - Exams Section
@@ -65,24 +65,30 @@ onMounted(() => {
    console.log('onMounted login.vue : usertype.value')
   //  console.log(usertype.value)
   AppStore.loading=false
-  if (AppStore.loggedIn==false) {return}
-  AppStore.userdata()
-  if (AppStore.user.usertype=='admin') {
-    //  console.log(usertype.value)
-     console.log("usertype.value admin")
+  if (AppStore.loggedIn==true) {return}//
+  userdata()
+  //  if (AppStore.user.usertype) {
+  // if (AppStore.user.usertype=='admin') {
+  //   //  console.log(usertype.value)
+  //    console.log("usertype.value admin")
 
-            router.push({ name: "adminhome" });
-            return
-          }
-           if(AppStore.user.usertype=='teacher') {
-             console.log("usertype.value teacher")
-            router.push({ name: "teacherhome" });
-            return
-          }else{
-             console.log("usertype.value student")
+  //           router.push({ name: "adminhome" });
+  //           return
+  //         }
+  //          if(AppStore.user.usertype=='teacher') {
+  //            console.log("usertype.value teacher")
+  //           router.push({ name: "teacherhome" });
+  //           return
+  //         }else{
+  //            console.log("usertype.value student")
 
-            router.push({ name: "Dashboard" });
-          }
+  //           router.push({ name: "Dashboard" });
+  //         }
+
+
+
+
+  //       }
 
 });
 function submit() {
@@ -96,62 +102,15 @@ function submit() {
           localStorage.setItem("authenticated", "true");
           AppStore.loggedIn=true
           AppStore.loading=false
-          console.log('userdata()');
+          console.log('userdata() from login submit');
           userdata()
-  if (AppStore.user.usertype=='admin') {
-    //  console.log(usertype.value)
-     console.log("usertype.value admin")
-
-            router.push({ name: "adminhome" });
-            return
-          }
-           if(AppStore.user.usertype=='teacher') {
-             console.log("usertype.value teacher")
-            router.push({ name: "teacherhome" });
-            return
-          }else{
-             console.log("usertype.value student")
-
-            router.push({ name: "Dashboard" });
-          }
           console.log('after userdata()');
-          
-          // console.log('AppStore.user');
-          // console.log(AppStore.user);
-          
-          // AppStore.loggedIn=true
-          // $emit("updateSidebar");
-
-
-
-
-
-
-
-
-
-
-
-
-
-        })
-        .catch((error) => {
+        }) .catch((error) => {
           AppStore.loading=false
           errmsg.value=error
           errmsgclass.value=false
-          // if(error.response.status!=undefined){
-            
-          
-          // if(error.response.status==500){
-          //   errmsg.value='Internal Server Error'
-          // }else{
-          //   errmsg.value='Error'
-          // }}
-          
-          // errmsg.value=error.response.errors
-          console.log('error');
+          console.log('error from submit login');
           console.log(error);
-          // errors.value = error.response.errors;
         });
     }
 
@@ -161,28 +120,40 @@ async function userdata() {
      await axios
         .post("/api/userdata")
         .then((res) => {
+
           errmsg.value=''
           errmsgclass.value=true
           AppStore.loading=false
-          mydata.value=res.data.data
+          //  mydata.value=res.data.data
           AppStore.user=res.data.data
+
+          AppStore.usertype =res.data.data.usertype;
+          console.log('AppStore.user userdata from login.vue ----------');
+          console.log(AppStore.user);
+          
           // usertype.value=res.data.data.usertype
-          if (AppStore.userusertype=='admin') {
+// console.log('res.data.data');
+// console.log(res.data.data);
+console.log('res.data.data.usertype from login');
+// console.log(res.data.data.usertype);
+          // return
+          if (res.data.data.usertype=='admin') {
             router.push({ name: "adminhome" });
-          } else if(AppStore.userusertype=='teacher') {
+          } else if(res.data.data.usertype=='teacher') {
             router.push({ name: "teacherhome" });
-          }else{
-            router.push({ name: "Dashboard" });
+          }else  if(res.data.data.usertype=='student') {
+            router.push({ name: "studenthome" });
           }
-          console.log(res.data.data);
+          // console.log(res.data.data);
 
         })
         .catch((error) => {
-          errmsg.value='Error loading user data'
+          errmsg.value='E  user data'
           errmsgclass.value=true
           AppStore.loading=false
+          console.log('error.response.data.errors userdata');
           console.log(error);
-          console.log(error.response.data.errors);
+          // console.log(error.response.data.errors);
 
           // errors.value = error.response.data.errors;
         });
@@ -192,10 +163,33 @@ async function userdata() {
 </script>
 
 <style scoped>
+
+body {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+
+
 #backend-view {
   height: 100vh;
-  /* background-color: #f3f4f6; */
-  background-color:  #A4C5E4;
+  /* background-color: #f3f4f6;
+  background-color:  #A4C5E4; */
  
   display: grid;
   align-items: center;

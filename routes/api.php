@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AddstudentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ControlmarkController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\GradingController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SavecodeController;
@@ -25,6 +27,16 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/marks/storeImage', [ControlmarkController::class, 'storeImage']);
+
+// uploadimg ControlmarkController
+Route::post('/upload', [ControlmarkController::class, 'store'])->name('upload');
+Route::get('/media/{post}', [ControlmarkController::class, 'getImages'])->name('post.images');
+// Route::get('/media/{post}', [ControlmarkController::class, 'getImages'])->name('post.images');
+
+
+Route::post('/uploadimg', [ControlmarkController::class, 'uploadimg'])->name('uploadimg');
+
 Route::post('/savecode', [SavecodeController::class, 'savecode']);
 Route::post('/contest'         , [UserController::class, 'contest'   ]);
 Route::post('/help'         , [HelpController::class, 'help'   ]);
@@ -77,12 +89,18 @@ Route::middleware('auth:sanctum')->prefix('forqan/admin')->group(function () {
     Route::post('allclasses', [ControlmarkController::class, 'allclasses']);
     Route::post('allsub', [ControlmarkController::class, 'allsub']);
     Route::post('update_class_sub_all', [ControlmarkController::class, 'update_class_sub_all']);
-
+    Route::post('marks/getmarks', [ControlmarkController::class, 'getmarks']);
+    // class/getstudents
 
 
 });
 
 // -------forqan/admin--------------------------------
+
+
+
+
+
 Route::middleware('auth:sanctum')->prefix('forqan/teacher')->group(function () {
     Route::post('savemarks', [ControlmarkController::class, 'savemarks']);
     Route::post('resetmarks', [ControlmarkController::class, 'resetmarks']);
@@ -99,16 +117,66 @@ Route::post('saveallmarks', [ControlmarkController::class, 'saveallmarks']);
 
 Route::middleware('auth:sanctum')->prefix('forqan/student')->group(function () {
 
- 
+Route::post('marks/getmarks', [ControlmarkController::class, 'getmarks_student']);
+
+    // forqan/student/marks/getmarks
 
 
 
 });
 // -------forqan/student--------------------------------
 
+Route::middleware('auth:sanctum')->prefix('grading')->group(function () {
+//  -> api/grading/insertone
+//  api/grading/insertmulti
+//  api/grading/updateone
+//  api/grading/updateall
+//  api/grading/deleteone
+//  api/grading/deletemulti
+//  api/grading/getone
+//  api/grading/getmulti
+//   -> api/grading/getall ->
+//  data
+    Route::post('xls_to_db'  , [GradingController::class, 'xls_to_db'  ]);
+    Route::post('insertone'  , [GradingController::class, 'insertone'  ]);
+    Route::post('insertmulti', [GradingController::class, 'insertmulti']);
+    Route::post('updateone'  , [GradingController::class, 'updateone'  ]);
+    Route::post('updateall', [GradingController::class, 'updateall']);
+    Route::post('deleteone'  , [GradingController::class, 'deleteone'  ]);
+    Route::post('deletemulti', [GradingController::class, 'deletemulti']);
+    Route::post('getone'     , [GradingController::class, 'getone'     ]);
+    Route::post('getmulti'   , [GradingController::class, 'getmulti'   ]);
+    Route::post('getall'     , [GradingController::class, 'getall'     ]);
 
+});
 
-
+Route::middleware('auth:sanctum')->prefix('forqan/admin/student/add')->group(function () {
+    //  -> api/grading/insertone
+    //  api/grading/insertmulti
+    //  api/grading/updateone
+    //  api/grading/updateall
+    //  api/grading/deleteone
+    //  api/grading/deletemulti
+    //  api/grading/getone
+    //  api/grading/getmulti
+    //   -> api/grading/getall 
+    
+    // forqan/admin/student/add/getall
+    
+    // ->
+    //  data
+        Route::post('xls_to_db'  , [AddstudentController::class, 'xls_to_db'  ]);
+        Route::post('insertone'  , [AddstudentController::class, 'insertone'  ]);
+        Route::post('insertmulti', [AddstudentController::class, 'insertmulti']);
+        Route::post('updateone'  , [AddstudentController::class, 'updateone'  ]);
+        Route::post('updateall'  , [AddstudentController::class, 'updateall'  ]);
+        Route::post('deleteone'  , [AddstudentController::class, 'deleteone'  ]);
+        Route::post('deletemulti', [AddstudentController::class, 'deletemulti']);
+        Route::post('getone'     , [AddstudentController::class, 'getone'     ]);
+        Route::post('getmulti'   , [AddstudentController::class, 'getmulti'   ]);
+        Route::post('getall'     , [AddstudentController::class, 'getall'     ]);
+    
+    });
 
 
 

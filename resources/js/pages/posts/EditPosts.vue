@@ -95,7 +95,7 @@ export default {
           },
         })
         .then((res) => {
-          this.$emit("showEditSuccess");
+          // this.$emit("showEditSuccess");
 
           this.$router.push({ name: "DashboardPostsList" });
         })

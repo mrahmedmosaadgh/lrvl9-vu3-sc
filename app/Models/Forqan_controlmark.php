@@ -11,8 +11,13 @@ class Forqan_controlmark extends Model
     public $guarded = [];
 
 
-    public function mystudents(){
+    public function mystudent(){
         return $this->belongsTo('App\Models\user','student_id','id');
+        // return $this->hasMany('App\Models\user','student_id','id');
+        // belongsTo
+    }
+    public function myteacher(){
+        return $this->belongsTo('App\Models\user','teacher_id','id');
         // return $this->hasMany('App\Models\user','student_id','id');
         // belongsTo
     }

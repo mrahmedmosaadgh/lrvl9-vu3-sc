@@ -38,7 +38,7 @@
 </template>
 <script>
 export default {
-  emits: ["updateSidebar"],
+  // emits: ["updateSidebar"],
   props: ["slug"],
   data() {
     return {

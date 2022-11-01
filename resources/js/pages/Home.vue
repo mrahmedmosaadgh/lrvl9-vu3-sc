@@ -2,14 +2,14 @@
   <!-- header -->
   <header class="header">
     <div class="header-text">
-      <h1>Alphayo Blog</h1>
-      <h4>Home of verified news...</h4>
+      <h1>School Every thing</h1>
+      <h4>Exam control section</h4>
     </div>
     <div class="overlay"></div>
   </header>
-  <h2 class="header-title">Latest Blog Posts</h2>
+  <h2 class="header-title">Forqan schools</h2>
   <section class="cards-blog latest-blog">
-    <div class="card-blog-content" v-for="post in posts" :key="post.id">
+    <!-- <div class="card-blog-content" v-for="post in posts" :key="post.id">
       <img :src="post.imagePath" alt="" />
       <p>
         {{ post.created_at }}
@@ -25,12 +25,12 @@
           >{{ post.title }}</router-link
         >
       </h4>
-    </div>
+    </div> -->
   </section>
 </template>
 <script>
 export default {
-  emits: ["updateSidebar"],
+  // emits: ["updateSidebar"],
   data() {
     return {
       posts: [],
@@ -38,12 +38,12 @@ export default {
   },
 
   mounted() {
-    axios
-      .get("/api/home-posts")
-      .then((response) => (this.posts = response.data.data))
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .get("/api/home-posts")
+    //   .then((response) => (this.posts = response.data.data))
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   },
 };
 </script>

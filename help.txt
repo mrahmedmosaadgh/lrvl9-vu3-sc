@@ -30,17 +30,466 @@ git push -u aa1  0.4
             </ul>
         </li>
 
-----------------------------------------------------------
+-------------fix---------------------------------------------
+php artisan clear-compiled 
+composer dump-autoload
+php artisan optimize
+php artisan optimize:clear
+
+
+npm run build
+---------uninstall-------------------------------------------------
+npm uninstall monaco-editor-vue3
+---------------Using Font Awesome in Vue 3-------------------------------------------
+These steps got it working for me:
+
+Install latest-3 (3.0.1) of vue-fontawesome, which is compatible with Vue 3, and the icon dependencies:
+
+npm i --save @fortawesome/vue-fontawesome@latest-3
+npm i --save @fortawesome/fontawesome-svg-core
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+In main.js, select the icons from @fortawesome/free-solid-svg-icons to load:
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPhone);
+Globally register the font-awesome-icon component:
+
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+createApp(App)
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .mount("#app");
+In src/App.vue, use the component like this (note the icon name is phone, not faPhone):
+
+<!-- explicit style -->
+<font-awesome-icon :icon="['fas', 'phone']" />
+
+<!-- implicit style (fas is assumed) -->
+<font-awesome-icon icon="phone" />
+demo
+https://stackblitz.com/edit/vue3-font-awesome?file=src%2Fmain.js
+
+--------------------------------------------
+router.getRoutes()
+------------------------------------------------------
+https://fontawesome.com/docs/web/use-with/vue/
+https://fontawesome.com/docs/web/use-with/vue/add-icons
+
+import { fas  } from '@fortawesome/free-solid-svg-icons'
+https://blog.logrocket.com/font-awesome-icons-vue-js-complete-guide/
+
+-------------------------------------------
+<button @click="AppStore.Toast.fire({
+  icon: 'success',
+  title: 'data loading Done'
+})">aaaa</button>
+
+
+------------------------------------------
+<font-awesome-icon icon="fa-solid fa-power-off" 
+class="svred  fixed right-0 overflow-visible select-none" 
+:class="(AppStore.user.usertype!='')?'bg-green-500 rounded-full':'bg-red-500 rounded-full opacity-40'"
+@click="logout"
+v-if="AppStore.loggedIn"
+/>
+------------------------------------
+
+
+
+
+        <font-awesome-icon icon="fa-solid fa-play" 
+class="svgreen fixed right-2 overflow-visible select-none" 
+
+/>
+<br>
+<font-awesome-icon icon="fa-solid fa-arrow-right" />
+<br><font-awesome-icon icon="fa-solid fa-forward-step" />
+<br><font-awesome-icon icon="fa-solid fa-backward-step" />
+<br><font-awesome-icon icon="fa-solid fa-rotate-left" />
+
+        <font-awesome-icon icon="fa-solid fa-eye" 
+class="svgreen fixed right-2 overflow-visible select-none" 
+
+/>
+
+        <font-awesome-icon icon="fa-solid fa-floppy-disk" class="svgreen fixed right-0 overflow-visible select-none" />
+
+
+    <font-awesome-icon :icon="(editmood)?'fa-solid fa-eye':'fa-solid fa-pen'"
+            class="svgreen   overflow-visible select-none"
+            :class="(myusertype !='')?'bg-green-500':'bg-red-500 opacity-40'" @click="editmood=!editmood"
+            v-if="AppStore.loggedIn" />
+
+
+-----------------------------
+https://dev.to/sureshramani/how-to-install-tailwind-css-3-in-laravel-9-with-vite-3-4hl1
+
+How to Install Tailwind CSS 3 in Laravel 9 With Vite 3
+muaz89@forqan
+2981
+
+
+
+
+
+
+http://127.0.5.1:8080
+
+
+------------------------------------------------------------------------
+    <p class="bg-gradient-to-r from-indigo-600 to-light-blue-500">aaaaaaaaaaaa</p>
+-------------------------------------------madal------------
+ <a class="btn" href="#open-modal">👋 Basic CSS-Only Modal</a>
+  <div class="interior">
+   
+  </div>
+<div class="container">
+
+</div>
+<div id="open-modal" class="modal-window">
+  <div>
+    <a href="#" title="Close" class="modal-close">
+    xxxxx
+      <font-awesome-icon icon="fa-solid fa-xmark" />
+
+    </a>
+    <h1>Voilà!</h1>
+    <div>
+<input type="text">
+</div>
+    <br>
+    <div><small>Check out 👇</small></div>
+
+
+      Your new favorite eyedropper tool!
+  </div>
+</div>
+<!-- </div> -->
+
+
+<!-- -------------------------------------------madal------------ -->
+.modal-window {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+.modal-window:target {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-window > div {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+}
+.modal-window header {
+  font-weight: bold;
+}
+.modal-window h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+}
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+.modal-close:hover {
+  color: rgb(255, 35, 35);
+}
+
+/* Demo Styles */
+/* html,
+body {
+  height: 100%;
+}
+
+html {
+  font-size: 18px;
+  line-height: 1.4;
+} */
+
+body {
+  font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  background-image: linear-gradient(to right, #7f53ac 0, #657ced 100%);
+  color: black;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* .container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+} */
+
+.modal-window > div {
+  border-radius: 1rem;
+}
+
+.modal-window div:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+
+.logo {
+  max-width: 150px;
+  display: block;
+}
+
+small {
+  color: lightgray;
+}
+
+.btn {
+  background-color: white;
+  padding: 1em 1.5em;
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+.btn i {
+  padding-right: 0.3em;
+}
+
+-----------------------------------------
+import { watchEffect, watch, ref, defineComponent } from "vue";
+    watch(showNotesSavedNotification, (value) => {
+      if (value) {
+        setTimeout(() => {
+          showNotesSavedNotification.value = false;
+        }, 5000);
+      }
+    })
+    ----------------------------
+    Ahmed1A545@forqan
+1A929
+========================== Code Mora Soft ===================================
+composer create-project --prefer-dist laravel/laravel Hospital
+تحميل نسخة لارفيل عن طريق الكمبوزر
+---------------------------------------------------
+php artisan  serve
+تشغيل سيرفر لارفيل
+---------------------------------------------------
+php artisan make:controller ContactController
+php artisan make:controller AddstudentController
+
+
+انشاء كنترول
+---------------------------------------------------
+php artisan make:controller RoleController --resource
+
+composer create-project --prefer-dist laravel/laravel 7 project
+
+------------------------------------------------
+Requset Validation
+
+php artisan make:request InvoicesValidation 
+------------------------------------------------
+
+php artisan make:notification add_invoice
+php artisan make:notification InvoicePaid
+
+composer require consoletvs/charts:5.*
+
+
+انشاء كنترول ريسورس
+Route::resource('photos', 'PhotoController');
+---------------------------------------------------
+php artisan make:model doctors -mcr
+انشاء كنترولار مجمع 
+---------------------------------------------------
+
+Route::get('name','controller@fun');
+عمل روت علي صفحة
+---------------------------------------------------
+public function  home(){
+return view(page name,compact('var name'));
+}
+انشاء فنكشن
+----------------------------------------------------
+public function __invoke($id){
+return view(page name,compact('var name'));}
+ انشاء فنكشن وحيد
+----------------------------------------------------
+@extends('pages.master')
+استدعاء صفحة الماستر
+----------------------------------------------------
+@yield("name")
+تسمية الحقل المراد التعديل فية فى كل صفحة جديد
+----------------------------------------------------
+@section('content')@stop
+استدعاء اسمة الحقل المراد التعديل علية
+----------------------------------------------------
+{{csrf_field()}}
+كود حماية الفورم
+----------------------------------------------------
+php artisan make:migration create_Doctor_Appointment_table --create=Doctor_Appointment
+كود انشاء جدول فى قاعدة البيانات
+-----------------------------------------------------
+php artisan make:model posts_model
+كود انشاء المديول الخاص بالجدول
+------------------------------------------------------
+php artisan make:migration add_votes_to_categories_table --table=categories
+كود اضافة حقل بعد انشاء الجدول
+------------------------------------------------------
+كود مسح كل الجداول من قاعدة البيانات
+php artisan migrate:fresh
+------------------------------------------------------
+php artisan migrate
+
+Route::get('admin', [AdminController::class, 'xx']);
+
+
+كود التاكيد علي انشاء الجدول
+------------------------------------------------------
+php artisan migrate:rollback
+كود حذف اخر جدول تم انشاءه
+------------------------------------------------------
+
+
+php artisan db:seed --class=PermissionTableSeeder
+php artisan db:seed --class=CreateAdminUserSeeder
+
+morasoft_doctorydb
+
+public function(Request $request){
+
+}
+فنكشن كود الحفظ
+------------------------------------------------------
+$var  =new model;
+بداية كود الحفظ تعريف اسمة المديول 
+------------------------------------------------------
+var->fieldname=$request->input name
+طريقة كتابة المتغيرات فى كود الحفظ
+------------------------------------------------------
+return redirect('show');
+العود مباشرة الي الصفحة المطلوبة
+------------------------------------------------------
+checkbox
+var->fieldname=implode("-",$request->input name);
+طريقة حفظ تشيك بوكس
+------------------------------------------------------
+file
+$var=$request->file('input')
+$var2=$var->getClientOriginalName();
+طريقة تعريف الصورة
+-------------------------------------------------------
+$varpic->move('folder','var2')
+طريقة نقل الصورة
+-------------------------------------------------------
+$varmodel->save();
+كود حفظ البيانات
+-------------------------------------------------------
+use Illuminate\Support\Facades\DB;
+فى حالة العرض كتابة الكود اعلي الكنترولر
+-------------------------------------------------------
+$varname=DB::table('table name')->get();
+جملة select
+-------------------------------------------------------
+return view('page',compact('varname'));
+العودة بشاشة العرض مع المتغير
+-------------------------------------------------------
+@foreach($var name as $var)
+{{$var->field name}}
+@endforeach
+جملة الفور اتش
+-------------------------------------------------------
+validation
+لينك التحقق فى لارفيل
+https://laravel.com/docs/5.8/validation#available-validation-rules
+-------------------------------------------------------
+<a href="{{$row->id}}/delete">delet</a> كود زر الحذف
+Route::get('{id}/delete','con1@delete'); روت الحذف
+function delete(model $adid){$adid->delete();}
+--------------------------------------------------------
+<a href="{{id}}/edit">edit</a> كود زر التعديل
+Route::get('{adid}/edit','con1@edut'); روت التعديل
+function edit(model $adid){return view('update',compact('adid'));}
+---------------------------------------------------------
+form  action =update  صفحة عرض البيانات للتعديل
+{{csrf_field()}}
+Route::post('{adid}/update','con1@update'); روت التعديل
+function update(model $adid,Request $request){
+
+$adid>update($request->all()); الطريقة الاولي تعديل الكل
+
+DB::table('table name')->where('id',$adid->id)
+->update(['field name'=>$request->input name]) الطريقة الثاني
+
+}
+---------------------------------------------------------
+protected $fillable = [
+        'username', 'email', 'password',
+    ];
+كود سماح التعديل داخل المديول
+
+protected $table="nametable";
+كود ربط الجدول بالموديل
 
 ----------------------------------------------------------
+php artisan make:auth
+كود انشاء نظام الدخول
+----------------------------------------------------------
+$request->session()->put(['name'=>'html-php']);
+             
+session()->put(['names'=>['ahmed','20','html']])  ; 
+كود فتح السيشن
+----------------------------------------------------------
+session()->get('');
+عرض السيشن
+-----------------------------------------------------------
+ session()->forget('key');
+ session()->flush();
+غلق السيشن
+-----------------------------------------------------------
+artisan make:middleware name
+كود انشاء ميدلوير
+-----------------------------------------------------------
 
-
-
-
-
-
-
-
+-----------------------------------------------------------
+@auth
+@endauth
+كود التاكد من عملية تسجيل الدخول 
+-----------------------------------------------------------
+            
+-----------------------------------------------------------
+@guest
+@endguest
+كود الدخول زائر
+-----------------------------------------------------------
+use Illuminate\Support\Facades\Schema;
+Schema::defaultS
+----------------------------------------------
+npm install vue-media-upload
+https://github.com/simmodev/vue-media-upload
 
 
 

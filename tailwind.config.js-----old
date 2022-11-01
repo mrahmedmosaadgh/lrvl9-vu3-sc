@@ -10,7 +10,9 @@ module.exports = {
     content: [
       "./resources/views/welcome.blade.php",
       "./resources/js/app.js",
-      "./resources/css/app.css",
+      "./resources/js/app.vue",
+      // "./resources/css/app.css",
+      // "./resources/css/app.vue",
 
       // "./resources/js/App.vue",
       
@@ -18,9 +20,14 @@ module.exports = {
   },
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
+      // fontFamily: {
+      //   sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      // },
+      // extend: {
+      //   fontFamily: {
+      //     sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      //   },
+
     },
   },
 }

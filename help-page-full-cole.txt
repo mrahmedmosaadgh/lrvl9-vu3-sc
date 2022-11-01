@@ -1,0 +1,101 @@
+database:table->gradings
+php artisan make:model gradings -mcr
+php artisan make:model Grading -mc
+===================================================================
+app\Models\gradings.php->
+    public $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+===================================================================
+database\migrations\2022_10_29_035417_create_gradings_table.php
+            $table->id();
+            $table->string('title');
+            $table->string('slug');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->string('imagePath');
+            $table->text('body');
+            $table->timestamps();
+
+                    Schema::create('gradings', function (Blueprint $table) {
+            $table->id();
+            $table->string('letter')->nullable();
+            $table->string('name')->nullable();
+            $table->integer('from')->nullable();
+            $table->integer('to')->nullable();
+            $table->timestamps();
+        });
+-----------------------------------------------------
+php artisan migrate
+-----------------------------------------------------
+routes\api.php
+..................
+use App\Http\Controllers\GradingController;
+
+Route::middleware('auth:sanctum')->prefix('grading')->group(function () {
+//  api/grading/insertone
+//  api/grading/insertmulti
+//  api/grading/updateone
+//  api/grading/updatemulti
+//  api/grading/deleteone
+//  api/grading/deletemulti
+//  api/grading/getone
+//  api/grading/getmulti
+//  api/grading/getall
+//  data
+    Route::post('insertone'  , [GradingController::class, 'insertone'  ]);
+    Route::post('insertmulti', [GradingController::class, 'insertmulti']);
+    Route::post('updateone'  , [GradingController::class, 'updateone'  ]);
+    Route::post('updatemulti', [GradingController::class, 'updatemulti']);
+    Route::post('deleteone'  , [GradingController::class, 'deleteone'  ]);
+    Route::post('deletemulti', [GradingController::class, 'deletemulti']);
+    Route::post('getone'     , [GradingController::class, 'getone'     ]);
+    Route::post('getmulti'   , [GradingController::class, 'getmulti'   ]);
+    Route::post('getall'     , [GradingController::class, 'getall'     ]);
+
+});
+
+
+-----------------------------------------------------
+app\Http\Controllers\GradingController.php
+................................................
+use App\Models\Grading;
+use Illuminate\Support\Facades\Auth;
+
+
+------------ vue -----------------------------------------
+resources\js\router\index.js
+.........................................................
+const grading          = () => import('../pages/forqan/admin/grading/home.vue')
+    {path: '/forqan/admin/marks/grading/home'      ,component: grading        ,name: 'grading'          ,meta: { auth: true, title: 'grading' }},
+
+
+-----------------------------------------
+npm i xlsx
+https://www.npmjs.com/package/xlsx
+
+-------------------------------------
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+<label for="file-upload" class="custom-file-upload">
+    <i class="fa fa-cloud-upload"></i> Custom Upload
+</label>
+<input id="file-upload" type="file"/>
+
+>=90,"Excellent",
+>=80,"Very Good",
+>=70,"Good",
+>=50,"Satisfactory",
+<50,"Needs Improvement"
+

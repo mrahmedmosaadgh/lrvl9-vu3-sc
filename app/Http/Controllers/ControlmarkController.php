@@ -13,19 +13,257 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\File;
 class ControlmarkController extends Controller
 {
 
 
+    public function storeImage(Request $request){
+        $file    = $request->file('image');
+        $filename= auth()->user()->id.".jpg";
+        $fullpath=public_path('marks/logo/'.$filename);
+    
+        if($file){
+    
+                try {
+                        $request->validate(["image" => [ 'max:3024'] ]);
+                                    if(File::exists($fullpath)){File::delete($fullpath);}
+                                    $file-> move(public_path('marks/logo'), $filename);
+    
+                        return response()->json(['message' =>'image  uploaded success '], 200);
+    
+                    } catch (\Throwable $th) {
+                        return response()->json(['message' => 'image  more than 3 mb','error' => $th]);
+                    }
+    
+    
+            }
+        }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function store(Request $request){
+        $path = public_path('tmp/uploads');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('image');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move($path, $name);
+
+        return ['name'=>$name];
+            
+    }
+    public function getImages(Request $request){
+
+        // $images = [
+        //     [
+        //         'id'=>'30',
+        //         'post_id'=>'1',
+        //         'name'=>'1.png',
+        //     ],
+        //     [
+        //         'id'=>'31',
+        //         'post_id'=>'12',
+        //         'name'=>'02.jpg',
+        //     ],
+        //     [
+        //         'id'=>'32',
+        //         'post_id'=>'12',
+        //         'name'=>'03.jpg',
+        //     ],
+        //     [
+        //         'id'=>'33',
+        //         'post_id'=>'13',
+        //         'name'=>'04.jpg',
+        //     ],
+        //     [
+        //         'id'=>'34',
+        //         'post_id'=>'13',
+        //         'name'=>'05.jpg',
+        //     ],
+        //     [
+        //         'id'=>'35',
+        //         'post_id'=>'13',
+        //         'name'=>'06.png',
+        //     ],
+        // ];
+        $images = [
+            [
+                'id'=>'30',
+                'post_id'=>'1',
+                'name'=>'1.png',
+            ],
+
+        ];
+        return ['media'=>$images];
+
+        // $images = $post->images;
+        // return ['media'=> public_path('/post_images').'/1.png'];
+        // return ['media'=> [public_path('post_images/1.png')]];
+        // return ['media'=> ['1.png']];
+        // return ['media'=>$request->all()];
+    }
+    // public function getImages(Post $post){
+    //     $images = $post->images;
+    //     return ['media'=>$images];
+    // }
+    public function uploadimg(Request $request){
+            
+        // $request->validate([
+        //    'file' => 'required|mimes:jpg,jpeg,png,csv,txt,xlx,xls,pdf|max:2048'
+        // ]);
+
+        // $fileUpload = new FileUpload;
+
+        if($request->file()) {
+            $file_name = time().'_'.$request->file->getClientOriginalName();
+            $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+
+            // $fileUpload->name = time().'_'.$request->file->getClientOriginalName();
+            // $fileUpload->path = '/storage/' . $file_path;
+            // $fileUpload->save();
+
+            return response()->json(['success'=>'File uploaded successfully.']);
+        }
+   }
+
+    // getmarks
+//     public function getmarks(Request $request)
+//     {
+// $marks=$request->all();
+//         return response()->json([
+//         'message' => 'getmarks success -----',
+//         'marks' => $marks ,
+//     ]);
+//     }
+
+    public function getmarks_student(Request $request)
+    {
+
+try {
+    //code...
+
+        $Forqan_controlmarks_setup_id=Forqan_controlmarks_setup::all()
+        ->where('school_id',1)
+        ->where('active',1)->first()->id;
+
+        $marks=Forqan_controlmark::where('school_id',1)
+        ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
+        // ->where('classname',$request['classname'])
+        // ->where('subject',$request['subject'])
+        // ->with('mystudent');
+        ->where('student_id',Auth::user()->id)
+
+        ->with('mystudent','myteacher')->get();
+        return response()->json([
+        'message' => 'getmarks success -----',
+        'marks' => $marks ,
+        'Auth'    => Auth::check(),
+    ]);
+
+
+
+} catch (\Throwable $th) {
+    //throw $th;
+    return response()->json([
+        'message' => 'getmarks success -----',
+        'marks'   => $marks ,
+        'Auth'    => Auth::check(),
+    ]);
+}
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function getmarks(Request $request)
+    {
+
+
+        $Forqan_controlmarks_setup_id=Forqan_controlmarks_setup::all()
+        ->where('school_id',1)
+        ->where('active',1)->first()->id;
+    
+        $marks=Forqan_controlmark::where('school_id',1)
+        ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
+        // ->where('classname',$request['classname'])
+        // ->where('subject',$request['subject'])
+        // ->with('mystudent');
+        ->with('mystudent','myteacher')->get();
+        // ->with('mystudent')->get()->first();
+
+
+
+
+
+
+        return response()->json([
+        'message' => 'getmarks success -----',
+        'marks' => $marks ,
+        'Forqan_controlmarks_setup_id' => $Forqan_controlmarks_setup_id ,
+        'teacher_id' =>  Auth::user()->id,
+        'nameen' =>  Auth::user()->name,
+     
+    ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // saveallmarks--------------------------------------
+
         public function saveallmarks(Request $request)
 {
+    $Forqan_controlmarks_setup_id=Forqan_controlmarks_setup::all()
+    ->where('school_id',1)
+    ->where('active',1)->first()->id;
 
+    $marks=Forqan_controlmark::where('school_id',1)
+    ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
+    ->where('classname',$request['classname'])
+    ->where('subject',$request['subject'])
+    // ->with('mystudent');
+    ->with('mystudent')->get();
 $marks=$request->mymarks;
 // $marks=$request->mymarks[0]['sub1'];
     //     return response()->json([
     //     'message' => 'saveallmarks success -----',
-    // //     'mystudents' => $mystudents ,
+    // //     'mystudent' => $mystudent ,
     //     'marks' => $marks ,
     // //     'count' => count($marks) ,
     // // 'id' => $value['id'] ,
@@ -37,6 +275,7 @@ try {
     foreach ($marks as $key => $value) {
 
         Forqan_controlmark::findOrFail($value['id'])->update([
+            "teacher_id"  =>Auth::user()->id,
             "sub1"  =>$value["sub1" ],
             "sub2"  =>$value["sub2" ],
             "sub3"  =>$value["sub3" ],
@@ -62,8 +301,8 @@ try {
     ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
     ->where('classname',$request['classname'])
     ->where('subject',$request['subject'])
-    // ->with('mystudents');
-    ->with('mystudents')->get();
+    // ->with('mystudent');
+    ->with('mystudent')->get();
     
     
     
@@ -88,13 +327,13 @@ try {
     ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
     ->where('classname',$request['classname'])
     ->where('subject',$request['subject'])
-    // ->with('mystudents');
-    ->with('mystudents')->get();
+    // ->with('mystudent');
+    ->with('mystudent')->get();
 
 
     return response()->json([
         'message' => 'saveallmarks failed -----',
-    //     'mystudents' => $mystudents ,
+    //     'mystudent' => $mystudent ,
         'marks' => $marks ,
     //     'count' => count($marks) ,
     // 'id' => $value['id'] ,
@@ -126,29 +365,29 @@ try {
     
         public function getstudents(Request $request)
 {
-$mystudents=User::where('classname',$request['classname'])
+    // all student in the class
+$mystudent=User::where('classname',$request['classname'])
 ->where('school_id',1)
-
 ->get();
-
+//  id for setup marks
 $Forqan_controlmarks_setup_id=Forqan_controlmarks_setup::all()
 ->where('school_id',1)
 ->where('active',1)->first()->id;
-
-
-
-foreach ($mystudents as $key => $value) {
+// for every student create his empty marks------
+foreach ($mystudent as $key => $value) {
     $marks=Forqan_controlmark::where('school_id',1)
     ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
     ->where('classname',$request['classname'])
     ->where('subject',$request['subject'])
     ->where('student_id',$value['id'])->get();
 
+    // if not found create one
 if( count($marks)<1){
     $userData = 
     array(
         'controlmarkssetup_id' => 1,
-        'school_id' => 1,
+        'school_id' => 1,//teacher_id
+        'teacher_id' =>  Auth::user()->id,//Auth::id()
         'student_id' => $value->id,
         'classname'  => $request['classname'] ,
         'subject'  => $request['subject'] ,
@@ -157,39 +396,23 @@ if( count($marks)<1){
 
 }
 
-    //     return response()->json([
-    //     'message' => 'getstudents success -----',
-    //     'mystudents' => $mystudents ,
-    //     'marks' => $marks ,
-    //     'count' => count($marks) ,
-    // 'id' => $value['id'] ,
-    // ]);
+}//end foreach
 
-
-
-// }
-    
-// }
-}
-
-
+// return students with marks
 $marks=Forqan_controlmark::where('school_id',1)
 ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
 ->where('classname',$request['classname'])
 ->where('subject',$request['subject'])
-// ->with('mystudents');
-->with('mystudents')->get();
-
-
+// ->with('mystudent');
+->with('mystudent')->get();
 
 return response()->json([
     'message' => 'getstudents success -----',
-    'mystudents' => $mystudents ,
+    'mystudent' => $mystudent ,
     'marks' => $marks ,
-
 ]);
 
-}
+}//end function getstudents
 
 
 
@@ -204,7 +427,7 @@ return response()->json([
 //         'data2' => $request['classname'] ,
 
 // ]);
-// $mystudents=User::where('classname',$request->classname)
+// $mystudent=User::where('classname',$request->classname)
 // ->where('school_id',1)
 // ->where('controlmarkssetup_id ','student')
 // ->get();
@@ -224,8 +447,8 @@ $sub_num=Subject::where('name',$request['subject'])->first()->sub;
 $marks=Forqan_controlmark::where('school_id',1)
 ->where('controlmarkssetup_id',$Forqan_controlmarks_setup_id)
 ->where('classname',$request['classname'])
-// ->with('mystudents');
-->with('mystudents')->get();
+// ->with('mystudent');
+->with('mystudent')->get();
 $mymarks=array();
 // $stack = array("orange", "banana");
 // array_push($stack, "apple", "raspberry");
@@ -244,8 +467,8 @@ foreach ($marks as $key => $value) {
     'id'=>$value['id'],
     'student_id'=>$value['student_id'],
     'classname'=>$value['classname'],
-    'mystudents'=>$value['mystudents'],
-    'name'=>$value['mystudents']['nameen'],
+    'mystudent'=>$value['mystudent'],
+    'name'=>$value['mystudent']['nameen'],
     'sub1'=>$value[$sub_num],
     'mark'=>json_decode($value[$sub_num]),
     'subarray'=>$subarray,
@@ -513,6 +736,7 @@ foreach ($Students as $key => $value) {
     array(
         'controlmarkssetup_id' => 1,
         'school_id' => 1,
+        'teacher_id' =>  Auth::user()->id,
         'student_id' => $value->id,
         'classname'  => $value->classname,
         );
@@ -556,13 +780,15 @@ return response()->json([
 ]);
 // Forum::create($val);
 $marks = new Forqan_controlmark();
-$request['classname'];
-$request['sub'];
-$request['marks'];
+// $request['classname'];
+// $request['sub'];
+// $request['marks'];
         $marks->controlmarkssetup_id = 1;
         $marks->school_id            = 1;
         $marks->student_id           = '$file_name';
         $marks->classname             = '$file_name';
+        // 'teacher_id' =>  Auth::user()->id,
+
         // $marks->controlmarkssetup_id = $request->student_name;
         // $marks->school_id            = $request->student_email;
         // $marks->grade                = $request['classname'];;
@@ -648,8 +874,8 @@ public function insert_teachers_to_db(Request $request)
 //         $teacher= scschoolclassteachersubject::where("teacher_id",Auth::user()->id  )
 //         ->with('myclasses')
 // ->with('mysubjects')
-// ->with('myteachers')
-// ->with('mystudents')
+// ->with('myteacher')
+// ->with('mystudent')
 // ->with('myschedules')
 // ->with('mycontrolmarks')
 

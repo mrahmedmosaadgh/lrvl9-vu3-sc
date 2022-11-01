@@ -1,13 +1,24 @@
 import { defineStore } from "pinia";
-import { useRouter, useRoute } from 'vue-router'
-
+import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 const router = useRouter()
-const route = useRoute()
+
 export const useAppStore =defineStore('appstore',{
 
 
     state:()=>({
-        user      :null,
+        user      :{
+          usertype:'',
+          nameen:'',
+          subjects:'[]',
+          classname:'[]',
+        },
+
+        //   usertype:'',
+        //   nameen:'',
+        //   subjects:'[]',
+        //   classname:'[]',
+
         teachers  :null,
         classes   :null,
         subjects  :null,
@@ -16,60 +27,69 @@ export const useAppStore =defineStore('appstore',{
         datatodb  :null,
         loggedIn:false,
         loading:false,
-        myroutes:{
-                    'admin':[
+        // myroutes:{
+        //             'admin':[
 
-                      'adminhome',
-                      'teacher_sub_class',
-                      'controlmarkssetups',
-                      'viewmarks',
-                      'hhhhhhhhhhhhhhh',
-                    ],
-                    'teacher':[
+        //               'adminhome',
+        //               'teacher_sub_class',
+        //               'controlmarkssetups',
+        //               'viewmarks',
+        //               'hhhhhhhhhhhhhhh',
+        //             ],
+        //             'teacher':[
 
-                      'teacherhome         ',
+        //               'teacherhome         ',
 
-                    ],
+        //             ],
 
-        },
+        // },
+         Toast : Swal.mixin({
+          toast: true,
+          position: 'top-right',
+          iconColor: 'white',
+          customClass: {
+            popup: 'colored-toast'
+          },
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true
+        }),
 //           router : useRouter(),
 //   route : useRoute()
 
     }),
     actions:{
-get_teachers(){
 
-},
-async redirectme(){
-    console.log('AppStore : redirectme()');
-    this.loggedIn=true
-    await axios
-    .post("/api/userdata")
-    .then((res) => {
-      // mydata.value=res.data.dat   a
-      this.user=res.data.data
+// async redirectme(){
+//     console.log('AppStore : redirectme()');
+//     this.loggedIn=true
+//     await axios
+//     .post("/api/userdata")
+//     .then((res) => {
+//       // mydata.value=res.data.dat   a
+//       this.user=res.data.data
      
 
 
 
-      if (this.user.usertype=='admin') {
-        //  console.log(usertype.value)
-         console.log("usertype.value admin")
+//       if (this.user.usertype=='admin') {
+//         //  console.log(usertype.value)
+//          console.log("usertype.value admin")
     
-                router.push({ name: "adminhome" });
+//                 router.push({ name: "adminhome" });
 
-                return
-              }
-               if(this.user.usertype=='teacher') {
-                 console.log("usertype.value teacher")
-                 router.push({ name: "teacherhome" });
-                // router.push({ name: "teacherhome" });
-                return
-              }else{
-                 console.log("usertype.value student")
+//                 return
+//               }
+//                if(this.user.usertype=='teacher') {
+//                  console.log("usertype.value teacher")
+//                  router.push({ name: "teacherhome" });
+//                 // router.push({ name: "teacherhome" });
+//                 return
+//               }else{
+//                  console.log("usertype.value student")
     
-                router.push({ name: "Dashboard" });
-              }
+//                 router.push({ name: "Dashboard" });
+//               }
 
 
 
@@ -84,34 +104,38 @@ async redirectme(){
 
 
 
-      console.log('userdata from appstore');
+//       console.log('userdata from appstore');
 
-    })
-    .catch((error) => {
-      console.log(error);
-      // console.log(error.response.data.errors);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//       // console.log(error.response.data.errors);
 
-      // errors.value = error.response.data.errors;
-    });
-},
-async userdata() {
-    //  console.log('userdata from appstore')
-   await axios
-      .post("/api/userdata")
-      .then((res) => {
-        // mydata.value=res.data.dat   a
-        this.user=res.data.data
-       
-        console.log('userdata from appstore');
+//       // errors.value = error.response.data.errors;
+//     });
+// },
 
-      })
-      .catch((error) => {
-        console.log(error);
-        // console.log(error.response.data.errors);
+//   check_auth(error_status){
+// console.log('check_auth(error_status) start');
+// console.log('error_status');
+// console.log(error_status);
 
-        // errors.value = error.response.data.errors;
-      });
-  }
+//     if (error_status === 401) {
+//       // router.push('login')
+//       console.log('AppStore check_auth() error_status 401 ');
+//       console.log(error_status);
+      
+// //place your reentry code
+// alert('AppStore check_auth() error_status 401')
+// return
+// }
+// alert('AppStore check_auth() error_status  not 401')
+
+
+
+
+//     // router.push('/user/1')
+//   }
 
     }
 

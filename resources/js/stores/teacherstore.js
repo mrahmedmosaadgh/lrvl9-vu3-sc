@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useTeacherStore =defineStore('teacherstore',{
     state:()=>({
-        user      :null,
+        // user      :null,
 
         classes   :null,
         mystudents   :null,

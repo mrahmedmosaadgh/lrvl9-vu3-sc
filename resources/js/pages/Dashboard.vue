@@ -1,6 +1,6 @@
 <template>
   <div id="backend-view">
-    <div class="logout"><a href="#" @click="logout">Log out</a></div>
+    <!-- <div class="logout"><a href="#" @click="logout">Log out</a></div> -->
     <h1 class="heading">Dashboard</h1>
     <p><span
       class=" bg-black text-white px-3 py-1 m-3 rounded text-xl"
@@ -26,10 +26,6 @@
         </li>
 
 
-
-
-        
-       
       </ul>
     </div>
   </div>

@@ -12,10 +12,28 @@ class HomeController extends Controller
 {
     public function userdata()
     {
+        try {
+            //code...
+
         return response()->json([
             'message' =>'userdata',
-            'data' =>Auth::user()
+            'data'    =>Auth::user(),
+            'Auth'    => Auth::check(),
         ]);
+
+    } catch (\Throwable $th) {
+                return response()->json([
+            'message' =>'error',
+            'data' =>$th,
+            'Auth' => Auth::check(),
+        ]);
+
+    }
+
+
+
+
+
     }
 
     public function index()

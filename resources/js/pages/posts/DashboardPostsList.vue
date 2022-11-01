@@ -38,7 +38,7 @@
 <script>
 export default {
   props: ["editSuccess"],
-  emits: ["updateSidebar"],
+  // emits: ["updateSidebar"],
   data() {
     return {
       posts: [],

@@ -14,6 +14,8 @@ import EditCategories from "../pages/categories/EditCategories.vue";
 import CreatePosts from "../pages/posts/CreatePosts.vue";
 import DashboardPostsList from "../pages/posts/DashboardPostsList.vue";
 import EditPosts from "../pages/posts/EditPosts.vue";
+import marks_import from "../pages/forqan/admin/marks/marks_import.vue";
+// pages\forqan\admin\marks_import.vue
 // import test from "../pages/test.vue";
 // import adminmain from "../pages/forqan/admin/main.vue";
 // import savecode from "../pages/savecode/savecode.vue";
@@ -22,8 +24,14 @@ import EditPosts from "../pages/posts/EditPosts.vue";
 // import test2 from "../pages/test2.vue";
 // import getdb from "../pages/help/msql/getdb.vue";
 import PathNotFound from "../pages/PathNotFound.vue";
+import test from "../pages/test.vue";
+import sum9 from "../pages/sum9.vue";
 
 // -------------------------------------------------------------resources\js\pages\help\msql\getdb.vue
+// const sum9          = () => import('../pages/sum9.vue')
+
+
+
 // ========forqan=======================================================================
 // resources\js\Views\forqan\teacher\teacherhome.vue
 
@@ -32,13 +40,25 @@ import PathNotFound from "../pages/PathNotFound.vue";
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // ========forqan=======================================================================
-
+const grading          = () => import('../pages/forqan/admin/grading/gradinghome.vue')
+// resources\js\pages\forqan\admin\grading\home.vue
 // forqan--teacherhome-----------------------------------------------------------------------
+
+
+
+
+
+
+
 // admin------------------------------------------------
 const adminhome          = () => import('../pages/forqan/admin/adminhome.vue')
 const teacher_sub_class  = () => import('../pages/forqan/admin/teacher_sub_class.vue')
 const controlmarkssetups = () => import('../pages/forqan/admin/marks/controlmarkssetups.vue')
 const viewmarks          = () => import('../pages/forqan/admin/marks/viewmarks.vue')
+const addstudenthome          = () => import('../pages/forqan/admin/addstudent/addstudenthome.vue')
+
+
+
 // admin------------------------------------------------
 
 
@@ -68,18 +88,27 @@ const studenthome       = () => import('../pages/forqan/student/studenthome.vue'
 
 
 const routes = [
-
-
+    // grading
+    {path: '/forqan/admin/marks/grading/home'      ,component: grading        ,name: 'grading'          ,meta: { auth: true, title: 'grading' }},
+    {path: '/test'      ,component: test        ,name: 'test'          ,meta: { auth: true, title: 'test' }},
+    {path: '/sum9'      ,component: sum9        ,name: 'sum9'          ,meta: { auth: true, title: 'sum9' }},
 
     // forqan--teacherhome-----------------------------------------------------------------------
     // {path: '/savecode'      ,component: savecode        ,name: 'savecode'          ,meta: { auth: true, title: 'savecode' }},
-
-
+    
+    
     // admin------------------------------------------------
+    // marks_import
+    {path: '/forqan/admin/marks/marks_import'      ,component: marks_import        ,name: 'marks_import'          ,meta: { auth: true, title: 'marks_import' }},
     {path: '/forqan/admin/adminhome'      ,component: adminhome        ,name: 'adminhome'          ,meta: { auth: true, title: 'adminhome' }},
     {path: '/forqan/admin/teacher_sub_class'      ,component: teacher_sub_class        ,name: 'teacher_sub_class'          ,meta: { auth: true, title: 'teacher_sub_class' }},
     {path: '/forqan/admin/marks/controlmarkssetups'      ,component: controlmarkssetups        ,name: 'controlmarkssetups'          ,meta: { auth: true, title: 'controlmarkssetups' }},
     {path: '/forqan/admin/marks/viewmarks'      ,component: viewmarks        ,name: 'viewmarks'          ,meta: { auth: true, title: 'viewmarks' }},
+    {path: '/forqan/admin/addstudent/addstudenthome'      ,component: addstudenthome        ,name: 'addstudenthome'          ,meta: { auth: true, title: 'grading' }}, 
+
+
+
+
     // admin------------------------------------------------
 
 
